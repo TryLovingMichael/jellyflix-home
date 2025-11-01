@@ -79,11 +79,19 @@ export const Hero = ({ item, jellyfinAPI }: HeroProps) => {
           
           {/* Buttons */}
           <div className="flex gap-3">
-            <Button size="lg" className="gap-2 bg-white text-black hover:bg-white/80">
+            <Button
+              size="lg"
+              onClick={() => window.location.href = `/player?id=${item.Id}`}
+              className="gap-2 bg-white text-black transition-all hover:bg-white/80 hover:scale-105"
+            >
               <Play className="h-5 w-5 fill-current" />
               Play
             </Button>
-            <Button size="lg" variant="secondary" className="gap-2 bg-white/20 text-white hover:bg-white/30">
+            <Button
+              size="lg"
+              variant="secondary"
+              className="gap-2 bg-white/20 text-white backdrop-blur-sm transition-all hover:bg-white/30 hover:scale-105"
+            >
               <Info className="h-5 w-5" />
               More Info
             </Button>

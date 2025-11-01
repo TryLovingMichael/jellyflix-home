@@ -25,6 +25,7 @@ export interface JellyfinItem {
   Genres?: string[];
   SeriesName?: string;
   IndexNumber?: number;
+  ParentIndexNumber?: number;
 }
 
 export class JellyfinAPI {
@@ -102,6 +103,13 @@ export class JellyfinAPI {
   async getContinueWatching(): Promise<JellyfinItem[]> {
     const data = await this.request(
       `/Users/${this.config.userId}/Items/Resume?MediaTypes=Video&Fields=PrimaryImageAspectRatio,BasicSyncInfo&ImageTypeLimit=1&Limit=20`
+    );
+    return data.Items || [];
+  }
+
+  async search(query: string): Promise<JellyfinItem[]> {
+    const data = await this.request(
+      `/Users/${this.config.userId}/Items?searchTerm=${encodeURIComponent(query)}&IncludeItemTypes=Movie,Series&Recursive=true&Fields=PrimaryImageAspectRatio,BasicSyncInfo&ImageTypeLimit=1&Limit=50`
     );
     return data.Items || [];
   }

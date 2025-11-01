@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { LogOut, Search } from "lucide-react";
+import { LogOut, Search, X } from "lucide-react";
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 import { clearJellyfinConfig } from "@/lib/jellyfin";
 
 export const Navigation = () => {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +24,19 @@ export const Navigation = () => {
     navigate('/login');
   };
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setShowSearch(false);
+      setSearchQuery("");
+    }
+  };
+
+  const handleNavigateHome = () => {
+    navigate('/browse');
+  };
+
   return (
     <nav
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
@@ -29,37 +45,65 @@ export const Navigation = () => {
     >
       <div className="flex items-center justify-between px-4 py-4 md:px-12">
         <div className="flex items-center gap-8">
-          <h1 className="text-2xl font-bold text-primary md:text-3xl">JELLYFIN</h1>
+          <button onClick={handleNavigateHome}>
+            <h1 className="text-2xl font-bold text-primary transition-opacity hover:opacity-80 md:text-3xl">
+              JELLYFIN
+            </h1>
+          </button>
           
           <div className="hidden items-center gap-6 md:flex">
-            <button className="text-sm font-medium text-foreground transition-colors hover:text-foreground/80">
+            <button
+              onClick={handleNavigateHome}
+              className="text-sm font-medium text-foreground transition-colors hover:text-foreground/80"
+            >
               Home
-            </button>
-            <button className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground">
-              TV Shows
-            </button>
-            <button className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground">
-              Movies
-            </button>
-            <button className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground">
-              Latest
             </button>
           </div>
         </div>
         
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="text-foreground">
-            <Search className="h-5 w-5" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleLogout}
-            className="text-foreground"
-          >
-            <LogOut className="h-5 w-5" />
-          </Button>
-        </div>
+        {showSearch ? (
+          <form onSubmit={handleSearch} className="flex flex-1 max-w-md mx-8 gap-2">
+            <Input
+              type="text"
+              placeholder="Search movies and TV shows..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              autoFocus
+              className="bg-black/50 text-foreground border-white/20 placeholder:text-foreground/50"
+            />
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                setShowSearch(false);
+                setSearchQuery("");
+              }}
+              className="text-foreground"
+            >
+              <X className="h-5 w-5" />
+            </Button>
+          </form>
+        ) : (
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowSearch(true)}
+              className="text-foreground hover:bg-white/10"
+            >
+              <Search className="h-5 w-5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleLogout}
+              className="text-foreground hover:bg-white/10"
+            >
+              <LogOut className="h-5 w-5" />
+            </Button>
+          </div>
+        )}
       </div>
     </nav>
   );

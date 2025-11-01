@@ -72,4 +72,25 @@ All colors MUST be HSL.
   .scroll-smooth-custom::-webkit-scrollbar {
     display: none;
   }
+
+  /* Enhanced animations */
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(229, 9, 20, 0.1) 50%,
+      transparent 100%
+    );
+    background-size: 1000px 100%;
+  }
 }

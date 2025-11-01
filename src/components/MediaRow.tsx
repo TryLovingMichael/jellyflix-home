@@ -49,11 +49,11 @@ export const MediaRow = ({ title, items, jellyfinAPI }: MediaRowProps) => {
         {showLeftArrow && (
           <button
             onClick={() => scroll('left')}
-            className="absolute left-0 top-0 z-20 flex h-full items-center bg-gradient-to-r from-background via-background/80 to-transparent pl-2 pr-8 opacity-0 transition-opacity group-hover/row:opacity-100"
+            className="absolute left-0 top-0 z-20 flex h-full items-center bg-gradient-to-r from-background via-background/90 to-transparent pl-2 pr-10 opacity-0 transition-opacity duration-300 group-hover/row:opacity-100"
             aria-label="Scroll left"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm transition-all hover:bg-black/70 hover:scale-110">
-              <ChevronLeft className="h-8 w-8 text-white" />
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-black/70 backdrop-blur-sm transition-all hover:bg-black/90 hover:scale-110">
+              <ChevronLeft className="h-9 w-9 text-white drop-shadow-lg" />
             </div>
           </button>
         )}
@@ -62,11 +62,11 @@ export const MediaRow = ({ title, items, jellyfinAPI }: MediaRowProps) => {
         {showRightArrow && (
           <button
             onClick={() => scroll('right')}
-            className="absolute right-0 top-0 z-20 flex h-full items-center bg-gradient-to-l from-background via-background/80 to-transparent pl-8 pr-2 opacity-0 transition-opacity group-hover/row:opacity-100"
+            className="absolute right-0 top-0 z-20 flex h-full items-center bg-gradient-to-l from-background via-background/90 to-transparent pl-10 pr-2 opacity-0 transition-opacity duration-300 group-hover/row:opacity-100"
             aria-label="Scroll right"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm transition-all hover:bg-black/70 hover:scale-110">
-              <ChevronRight className="h-8 w-8 text-white" />
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-black/70 backdrop-blur-sm transition-all hover:bg-black/90 hover:scale-110">
+              <ChevronRight className="h-9 w-9 text-white drop-shadow-lg" />
             </div>
           </button>
         )}
