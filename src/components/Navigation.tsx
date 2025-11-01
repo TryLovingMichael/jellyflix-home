@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LogOut, Search, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { SidebarTrigger } from "./ui/sidebar";
 import { clearJellyfinConfig } from "@/lib/jellyfin";
 
 export const Navigation = () => {
@@ -39,14 +40,15 @@ export const Navigation = () => {
 
   return (
     <nav
-      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background' : 'bg-gradient-to-b from-black/60 to-transparent'
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-background/95 backdrop-blur-sm shadow-md' : 'bg-gradient-to-b from-background/80 to-transparent'
       }`}
     >
-      <div className="flex items-center justify-between px-4 py-4 md:px-12">
-        <div className="flex items-center gap-8">
+      <div className="flex items-center justify-between px-4 py-4 md:px-6">
+        <div className="flex items-center gap-4">
+          <SidebarTrigger />
           <button onClick={handleNavigateHome}>
-            <h1 className="text-2xl font-bold text-primary transition-opacity hover:opacity-80 md:text-3xl">
+            <h1 className="text-2xl font-bold text-primary transition-opacity hover:opacity-80">
               JELLYFIN
             </h1>
           </button>

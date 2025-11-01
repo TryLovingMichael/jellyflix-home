@@ -4,6 +4,8 @@ import { JellyfinAPI, JellyfinItem, loadJellyfinConfig } from "@/lib/jellyfin";
 import { Hero } from "@/components/Hero";
 import { MediaRow } from "@/components/MediaRow";
 import { Navigation } from "@/components/Navigation";
+import { AppSidebar } from "@/components/AppSidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Loader2 } from "lucide-react";
 
 const Browse = () => {
@@ -65,44 +67,52 @@ const Browse = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <Hero item={heroItem} jellyfinAPI={jellyfinAPI} />
-      
-      <div className="relative -mt-32 space-y-8 pb-12">
-        {continueWatching.length > 0 && jellyfinAPI && (
-          <MediaRow
-            title="Continue Watching"
-            items={continueWatching}
-            jellyfinAPI={jellyfinAPI}
-          />
-        )}
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full bg-background">
+        <AppSidebar />
         
-        {recentlyAdded.length > 0 && jellyfinAPI && (
-          <MediaRow
-            title="Recently Added"
-            items={recentlyAdded}
-            jellyfinAPI={jellyfinAPI}
-          />
-        )}
-        
-        {movies.length > 0 && jellyfinAPI && (
-          <MediaRow
-            title="Movies"
-            items={movies.slice(0, 20)}
-            jellyfinAPI={jellyfinAPI}
-          />
-        )}
-        
-        {tvShows.length > 0 && jellyfinAPI && (
-          <MediaRow
-            title="TV Shows"
-            items={tvShows.slice(0, 20)}
-            jellyfinAPI={jellyfinAPI}
-          />
-        )}
+        <div className="flex-1 flex flex-col">
+          <Navigation />
+          <div className="flex-1">
+            <Hero item={heroItem} jellyfinAPI={jellyfinAPI} />
+            
+            <div className="relative -mt-20 space-y-8 pb-12 px-4">
+              {continueWatching.length > 0 && jellyfinAPI && (
+                <MediaRow
+                  title="Continue Watching"
+                  items={continueWatching}
+                  jellyfinAPI={jellyfinAPI}
+                />
+              )}
+              
+              {recentlyAdded.length > 0 && jellyfinAPI && (
+                <MediaRow
+                  title="Recently Added"
+                  items={recentlyAdded}
+                  jellyfinAPI={jellyfinAPI}
+                />
+              )}
+              
+              {movies.length > 0 && jellyfinAPI && (
+                <MediaRow
+                  title="Movies"
+                  items={movies.slice(0, 20)}
+                  jellyfinAPI={jellyfinAPI}
+                />
+              )}
+              
+              {tvShows.length > 0 && jellyfinAPI && (
+                <MediaRow
+                  title="TV Shows"
+                  items={tvShows.slice(0, 20)}
+                  jellyfinAPI={jellyfinAPI}
+                />
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 
