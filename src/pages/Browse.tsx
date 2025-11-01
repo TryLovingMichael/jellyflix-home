@@ -5,7 +5,8 @@ import { Hero } from "@/components/Hero";
 import { MediaRow } from "@/components/MediaRow";
 import { Navigation } from "@/components/Navigation";
 import { AppSidebar } from "@/components/AppSidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { Loader2 } from "lucide-react";
 
 const Browse = () => {
@@ -67,7 +68,7 @@ const Browse = () => {
   }
 
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <div className="min-h-screen flex w-full bg-background">
         <AppSidebar />
         
@@ -76,7 +77,7 @@ const Browse = () => {
           <div className="flex-1">
             <Hero item={heroItem} jellyfinAPI={jellyfinAPI} />
             
-            <div className="relative -mt-20 space-y-8 pb-12 px-4">
+            <div className="relative -mt-20 space-y-10 pb-16 px-4">
               {continueWatching.length > 0 && jellyfinAPI && (
                 <MediaRow
                   title="Continue Watching"
@@ -111,6 +112,7 @@ const Browse = () => {
             </div>
           </div>
         </div>
+        <ScrollToTop />
       </div>
     </SidebarProvider>
   );

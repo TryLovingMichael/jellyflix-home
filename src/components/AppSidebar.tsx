@@ -39,8 +39,8 @@ export function AppSidebar() {
 
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
     isActive 
-      ? "bg-primary/20 text-primary font-semibold border-l-2 border-primary" 
-      : "hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-all duration-200";
+      ? "bg-primary/20 text-primary font-semibold border-l-4 border-primary shadow-lg shadow-primary/10" 
+      : "hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-all duration-200 border-l-4 border-transparent";
 
   return (
     <Sidebar
@@ -51,9 +51,12 @@ export function AppSidebar() {
     >
       <SidebarHeader className={collapsed ? "p-2" : "p-4"}>
         {!collapsed && (
-          <h2 className="text-lg font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-            Browse
-          </h2>
+          <div className="space-y-1">
+            <h2 className="text-lg font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+              Browse
+            </h2>
+            <p className="text-xs text-muted-foreground">Explore your library</p>
+          </div>
         )}
       </SidebarHeader>
       

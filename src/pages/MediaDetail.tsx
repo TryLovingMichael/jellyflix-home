@@ -80,7 +80,7 @@ const MediaDetail = () => {
   const posterUrl = jellyfinAPI.getItemImageUrl(item, 'Primary');
 
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <div className="min-h-screen flex w-full bg-background">
         <AppSidebar />
         
