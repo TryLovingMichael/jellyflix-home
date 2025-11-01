@@ -176,12 +176,12 @@ const Browse = () => {
 
   return (
     <SidebarProvider defaultOpen={false}>
-      <div className="min-h-screen flex w-full bg-background">
+      <div className="min-h-screen flex w-full bg-background overflow-hidden">
         <AppSidebar />
         
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col overflow-x-hidden">
           <Navigation />
-          <div className="flex-1">
+          <div className="flex-1 overflow-x-hidden">
             <Hero item={heroItem} jellyfinAPI={jellyfinAPI} />
             
             <div className="relative -mt-20 space-y-10 pb-16 px-4">
