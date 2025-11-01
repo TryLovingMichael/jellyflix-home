@@ -5,9 +5,11 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { SidebarTrigger } from "./ui/sidebar";
 import { clearJellyfinConfig } from "@/lib/jellyfin";
+import { useToast } from "@/hooks/use-toast";
 
 export const Navigation = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [isScrolled, setIsScrolled] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,8 +22,31 @@ export const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // 's' key for search (when not in input)
+      if (e.key === 's' && !showSearch && document.activeElement?.tagName !== 'INPUT') {
+        e.preventDefault();
+        setShowSearch(true);
+      }
+      // Escape to close search
+      if (e.key === 'Escape' && showSearch) {
+        setShowSearch(false);
+        setSearchQuery("");
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [showSearch]);
+
   const handleLogout = () => {
     clearJellyfinConfig();
+    toast({
+      title: "Logged out",
+      description: "You have been successfully logged out.",
+    });
     navigate('/login');
   };
 

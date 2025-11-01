@@ -7,7 +7,14 @@ import { Navigation } from "@/components/Navigation";
 import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ScrollToTop } from "@/components/ScrollToTop";
-import { Loader2 } from "lucide-react";
+import { Loader2, ArrowUpDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Browse = () => {
   const navigate = useNavigate();
@@ -22,6 +29,7 @@ const Browse = () => {
   const [recentlyAdded, setRecentlyAdded] = useState<JellyfinItem[]>([]);
   const [movies, setMovies] = useState<JellyfinItem[]>([]);
   const [tvShows, setTVShows] = useState<JellyfinItem[]>([]);
+  const [sortBy, setSortBy] = useState<"name" | "rating" | "year" | "added">("added");
 
   useEffect(() => {
     const initializeJellyfin = async () => {
@@ -138,6 +146,26 @@ const Browse = () => {
     initializeJellyfin();
   }, [navigate, filterType, filterGenre]);
 
+  // Sort content based on selected option
+  const sortContent = (items: JellyfinItem[]) => {
+    const sorted = [...items];
+    switch (sortBy) {
+      case "name":
+        return sorted.sort((a, b) => (a.Name || "").localeCompare(b.Name || ""));
+      case "rating":
+        return sorted.sort((a, b) => (b.CommunityRating || 0) - (a.CommunityRating || 0));
+      case "year":
+        return sorted.sort((a, b) => (b.ProductionYear || 0) - (a.ProductionYear || 0));
+      case "added":
+      default:
+        return sorted.sort((a, b) => {
+          const dateA = a.DateCreated ? new Date(a.DateCreated).getTime() : 0;
+          const dateB = b.DateCreated ? new Date(b.DateCreated).getTime() : 0;
+          return dateB - dateA;
+        });
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
@@ -159,7 +187,7 @@ const Browse = () => {
             <div className="relative -mt-20 space-y-10 pb-16 px-4">
               {/* Dynamic page title based on filter */}
               {(filterType || filterGenre) && (
-                <div className="mb-8 px-4 md:px-8">
+                <div className="mb-8 px-4 md:px-8 flex items-center justify-between">
                   <h1 className="text-3xl md:text-4xl font-bold text-foreground">
                     {filterType === "movies" && "Movies"}
                     {filterType === "tv" && "TV Shows"}
@@ -168,6 +196,32 @@ const Browse = () => {
                     {filterType === "trending" && "Trending Now"}
                     {filterGenre && `${filterGenre.charAt(0).toUpperCase() + filterGenre.slice(1)} ${movies.length > 0 && tvShows.length > 0 ? "Movies & Shows" : movies.length > 0 ? "Movies" : "Shows"}`}
                   </h1>
+                  
+                  {/* Sort dropdown - hide for continue watching */}
+                  {filterType !== "continue" && (movies.length > 0 || tvShows.length > 0) && (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="sm" className="gap-2">
+                          <ArrowUpDown className="h-4 w-4" />
+                          Sort
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={() => setSortBy("added")}>
+                          Recently Added
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSortBy("name")}>
+                          Name (A-Z)
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSortBy("rating")}>
+                          Rating (High to Low)
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSortBy("year")}>
+                          Year (Newest)
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  )}
                 </div>
               )}
               
@@ -176,13 +230,14 @@ const Browse = () => {
                   title="Continue Watching"
                   items={continueWatching}
                   jellyfinAPI={jellyfinAPI}
+                  showProgress={true}
                 />
               )}
               
               {recentlyAdded.length > 0 && jellyfinAPI && (
                 <MediaRow
                   title={filterType === "trending" ? "Trending Now" : "Recently Added"}
-                  items={recentlyAdded}
+                  items={sortContent(recentlyAdded)}
                   jellyfinAPI={jellyfinAPI}
                 />
               )}
@@ -190,7 +245,7 @@ const Browse = () => {
               {movies.length > 0 && jellyfinAPI && (
                 <MediaRow
                   title={filterType === "movies" || filterGenre ? filterGenre ? `${filterGenre.charAt(0).toUpperCase() + filterGenre.slice(1)} Movies` : "All Movies" : "Movies"}
-                  items={movies.slice(0, 20)}
+                  items={sortContent(movies).slice(0, 20)}
                   jellyfinAPI={jellyfinAPI}
                 />
               )}
@@ -198,7 +253,7 @@ const Browse = () => {
               {tvShows.length > 0 && jellyfinAPI && (
                 <MediaRow
                   title={filterType === "tv" || filterGenre ? filterGenre ? `${filterGenre.charAt(0).toUpperCase() + filterGenre.slice(1)} Shows` : "All TV Shows" : "TV Shows"}
-                  items={tvShows.slice(0, 20)}
+                  items={sortContent(tvShows).slice(0, 20)}
                   jellyfinAPI={jellyfinAPI}
                 />
               )}

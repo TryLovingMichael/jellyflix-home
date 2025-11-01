@@ -26,6 +26,12 @@ export interface JellyfinItem {
   SeriesName?: string;
   IndexNumber?: number;
   ParentIndexNumber?: number;
+  DateCreated?: string;
+  UserData?: {
+    PlayedPercentage?: number;
+    Played?: boolean;
+    IsFavorite?: boolean;
+  };
 }
 
 export class JellyfinAPI {

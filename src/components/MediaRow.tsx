@@ -7,9 +7,10 @@ interface MediaRowProps {
   title: string;
   items: JellyfinItem[];
   jellyfinAPI: JellyfinAPI;
+  showProgress?: boolean;
 }
 
-export const MediaRow = ({ title, items, jellyfinAPI }: MediaRowProps) => {
+export const MediaRow = ({ title, items, jellyfinAPI, showProgress = false }: MediaRowProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
@@ -82,6 +83,7 @@ export const MediaRow = ({ title, items, jellyfinAPI }: MediaRowProps) => {
               key={item.Id}
               item={item}
               imageUrl={jellyfinAPI.getItemImageUrl(item, 'Primary')}
+              showProgress={showProgress}
             />
           ))}
         </div>

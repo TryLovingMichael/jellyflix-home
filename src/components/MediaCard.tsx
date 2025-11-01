@@ -1,13 +1,15 @@
 import { JellyfinItem } from "@/lib/jellyfin";
-import { Play } from "lucide-react";
+import { Play, Star, Clock } from "lucide-react";
+import { Badge } from "./ui/badge";
 
 interface MediaCardProps {
   item: JellyfinItem;
   imageUrl: string;
   onClick?: () => void;
+  showProgress?: boolean;
 }
 
-export const MediaCard = ({ item, imageUrl, onClick }: MediaCardProps) => {
+export const MediaCard = ({ item, imageUrl, onClick, showProgress = false }: MediaCardProps) => {
   const handleClick = () => {
     if (onClick) {
       onClick();
@@ -22,11 +24,23 @@ export const MediaCard = ({ item, imageUrl, onClick }: MediaCardProps) => {
     }
   };
 
+  // Calculate progress percentage if available
+  const progressPercent = item.UserData?.PlayedPercentage || 0;
+  const hasProgress = showProgress && progressPercent > 0 && progressPercent < 100;
+  const isNew = item.DateCreated && new Date().getTime() - new Date(item.DateCreated).getTime() < 7 * 24 * 60 * 60 * 1000; // 7 days
+
   return (
     <div
       className="group relative min-w-[120px] max-w-[140px] cursor-pointer transition-all duration-500 ease-out hover:scale-110 hover:z-10"
       onClick={handleClick}
     >
+      {/* New badge */}
+      {isNew && (
+        <Badge className="absolute -right-2 -top-2 z-20 bg-primary text-primary-foreground shadow-lg">
+          New
+        </Badge>
+      )}
+      
       <div className="relative aspect-[2/3] overflow-hidden rounded-lg bg-muted shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary/30 group-hover:ring-2 group-hover:ring-primary/20">
         {imageUrl ? (
           <img
@@ -72,6 +86,16 @@ export const MediaCard = ({ item, imageUrl, onClick }: MediaCardProps) => {
         
         {/* Shimmer effect on hover */}
         <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-1000 group-hover:translate-x-[100%]" />
+        
+        {/* Progress bar */}
+        {hasProgress && (
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/50">
+            <div 
+              className="h-full bg-primary transition-all duration-300"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
