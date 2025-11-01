@@ -114,6 +114,27 @@ export class JellyfinAPI {
     return data.Items || [];
   }
 
+  async getItemDetails(itemId: string): Promise<JellyfinItem> {
+    const data = await this.request(
+      `/Users/${this.config.userId}/Items/${itemId}`
+    );
+    return data;
+  }
+
+  async getSeasons(seriesId: string): Promise<JellyfinItem[]> {
+    const data = await this.request(
+      `/Shows/${seriesId}/Seasons?userId=${this.config.userId}&Fields=PrimaryImageAspectRatio`
+    );
+    return data.Items || [];
+  }
+
+  async getEpisodes(seriesId: string, seasonId: string): Promise<JellyfinItem[]> {
+    const data = await this.request(
+      `/Shows/${seriesId}/Episodes?seasonId=${seasonId}&userId=${this.config.userId}&Fields=Overview,PrimaryImageAspectRatio`
+    );
+    return data.Items || [];
+  }
+
   getItemImageUrl(item: JellyfinItem, type: 'Primary' | 'Backdrop' | 'Logo' = 'Primary'): string {
     if (type === 'Backdrop' && item.BackdropImageTags && item.BackdropImageTags.length > 0) {
       return this.getImageUrl(item.Id, 'Backdrop', item.BackdropImageTags[0]);

@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Browse from "./pages/Browse";
 import VideoPlayer from "./pages/VideoPlayer";
 import Search from "./pages/Search";
+import MediaDetail from "./pages/MediaDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/browse" element={<Browse />} />
+          <Route path="/detail" element={<MediaDetail />} />
           <Route path="/player" element={<VideoPlayer />} />
           <Route path="/search" element={<Search />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

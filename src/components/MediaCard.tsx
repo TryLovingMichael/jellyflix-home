@@ -12,7 +12,13 @@ export const MediaCard = ({ item, imageUrl, onClick }: MediaCardProps) => {
     if (onClick) {
       onClick();
     } else {
-      window.location.href = `/player?id=${item.Id}`;
+      // For movies and episodes in continue watching, go directly to player
+      // For series, go to detail page to select episodes
+      if (item.Type === "Episode" || item.Type === "Movie") {
+        window.location.href = `/player?id=${item.Id}`;
+      } else {
+        window.location.href = `/detail?id=${item.Id}`;
+      }
     }
   };
 
