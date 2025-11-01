@@ -24,7 +24,7 @@ export const MediaCard = ({ item, imageUrl, onClick }: MediaCardProps) => {
 
   return (
     <div
-      className="group relative min-w-[150px] cursor-pointer transition-all duration-500 ease-out hover:scale-110 hover:z-10"
+      className="group relative min-w-[120px] max-w-[140px] cursor-pointer transition-all duration-500 ease-out hover:scale-110 hover:z-10"
       onClick={handleClick}
     >
       <div className="relative aspect-[2/3] overflow-hidden rounded-lg bg-muted shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary/30 group-hover:ring-2 group-hover:ring-primary/20">
