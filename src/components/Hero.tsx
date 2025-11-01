@@ -24,13 +24,13 @@ export const Hero = ({ item, jellyfinAPI }: HeroProps) => {
   const logoUrl = jellyfinAPI.getItemImageUrl(item, 'Logo');
 
   return (
-    <div className="relative h-[70vh] w-full overflow-hidden">
+    <div className="relative h-[60vh] max-h-[800px] w-full overflow-hidden">
       {/* Backdrop image */}
       {backdropUrl && (
         <img
           src={backdropUrl}
           alt={item.Name}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-center"
         />
       )}
       
