@@ -24,10 +24,10 @@ export const MediaCard = ({ item, imageUrl, onClick }: MediaCardProps) => {
 
   return (
     <div
-      className="group relative min-w-[150px] cursor-pointer transition-all duration-300 ease-out hover:scale-110 hover:z-10"
+      className="group relative min-w-[150px] cursor-pointer transition-all duration-500 ease-out hover:scale-110 hover:z-10"
       onClick={handleClick}
     >
-      <div className="relative aspect-[2/3] overflow-hidden rounded-md bg-muted shadow-lg transition-shadow duration-300 group-hover:shadow-2xl group-hover:shadow-primary/20">
+      <div className="relative aspect-[2/3] overflow-hidden rounded-lg bg-muted shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary/30 group-hover:ring-2 group-hover:ring-primary/20">
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -42,7 +42,7 @@ export const MediaCard = ({ item, imageUrl, onClick }: MediaCardProps) => {
         )}
         
         {/* Hover overlay with enhanced gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/98 via-black/70 to-transparent opacity-0 transition-all duration-500 group-hover:opacity-100 backdrop-blur-sm">
           <div className="absolute bottom-0 left-0 right-0 p-4">
             <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-white drop-shadow-lg">
               {item.Name}
@@ -62,9 +62,10 @@ export const MediaCard = ({ item, imageUrl, onClick }: MediaCardProps) => {
           
           {/* Enhanced play button with pulse animation */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-primary/90 backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:bg-primary">
-              <div className="absolute inset-0 animate-ping rounded-full bg-primary opacity-20"></div>
-              <Play className="relative z-10 h-8 w-8 fill-white text-white" />
+            <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-primary/95 backdrop-blur-md transition-all duration-500 group-hover:scale-125 group-hover:bg-primary shadow-2xl group-hover:shadow-primary/50">
+              <div className="absolute inset-0 animate-ping rounded-full bg-primary opacity-30"></div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-primary/80"></div>
+              <Play className="relative z-10 h-8 w-8 fill-white text-white drop-shadow-lg" />
             </div>
           </div>
         </div>

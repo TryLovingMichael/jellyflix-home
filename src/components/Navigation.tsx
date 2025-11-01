@@ -40,27 +40,32 @@ export const Navigation = () => {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/95 backdrop-blur-sm shadow-md' : 'bg-gradient-to-b from-background/80 to-transparent'
+      className={`sticky top-0 z-50 transition-all duration-500 ${
+        isScrolled 
+          ? "bg-black/95 backdrop-blur-xl shadow-2xl border-b border-white/5" 
+          : "bg-gradient-to-b from-black/90 via-black/50 to-transparent"
       }`}
     >
       <div className="flex items-center justify-between px-4 py-4 md:px-6">
-        <div className="flex items-center gap-4">
-          <SidebarTrigger className="hover:bg-primary/20 rounded-md transition-colors" />
-          <button onClick={handleNavigateHome}>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent transition-opacity hover:opacity-80">
-              JELLYFIN
-            </h1>
-          </button>
-          
-          <div className="hidden items-center gap-6 md:flex">
+        <div 
+          onClick={handleNavigateHome}
+          className="flex items-center gap-3 cursor-pointer group"
+        >
+          <SidebarTrigger className="text-white hover:bg-white/10 transition-all duration-300 rounded-lg p-2.5 hover:scale-110" />
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-primary via-primary/90 to-primary/70 bg-clip-text text-transparent group-hover:scale-105 transition-all duration-300 drop-shadow-lg">
+            Jellyfin
+          </h1>
+        </div>
+        
+        <div className="hidden items-center gap-6 md:flex">
+          {!showSearch && (
             <button
               onClick={handleNavigateHome}
-              className="text-sm font-medium text-foreground transition-colors hover:text-foreground/80"
+              className="text-sm font-medium text-foreground/90 transition-all duration-300 hover:text-foreground hover:scale-105"
             >
               Home
             </button>
-          </div>
+          )}
         </div>
         
         {showSearch ? (

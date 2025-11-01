@@ -138,7 +138,7 @@ const MediaDetail = () => {
                       <Button
                         size="lg"
                         onClick={() => handlePlay(item.Id)}
-                        className="gap-2"
+                        className="gap-2 px-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 font-semibold"
                       >
                         <Play className="h-5 w-5 fill-white" />
                         Play
@@ -194,21 +194,21 @@ const MediaDetail = () => {
                       <TabsContent key={season.Id} value={season.Id}>
                         <div className="grid gap-4">
                           {episodes[season.Id]?.map((episode) => (
-                            <Card key={episode.Id} className="overflow-hidden">
+                            <Card key={episode.Id} className="overflow-hidden bg-card/50 backdrop-blur-sm border-white/5 hover:bg-card/70 transition-all duration-300 hover:shadow-xl hover:border-primary/20">
                               <div className="flex gap-4 p-4">
-                                <div className="relative w-48 aspect-video bg-muted rounded overflow-hidden shrink-0">
+                                <div className="relative w-48 aspect-video bg-muted rounded-lg overflow-hidden shrink-0 group/thumb">
                                   {jellyfinAPI.getItemImageUrl(episode, 'Primary') && (
                                     <img
                                       src={jellyfinAPI.getItemImageUrl(episode, 'Primary')}
                                       alt={episode.Name}
-                                      className="w-full h-full object-cover"
+                                      className="w-full h-full object-cover transition-transform duration-500 group-hover/thumb:scale-110"
                                     />
                                   )}
-                                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                                  <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover/thumb:opacity-100 transition-all duration-300">
                                     <Button
                                       size="icon"
                                       onClick={() => handlePlay(episode.Id)}
-                                      className="rounded-full"
+                                      className="rounded-full shadow-xl hover:scale-110 transition-all duration-300"
                                     >
                                       <Play className="h-5 w-5 fill-white" />
                                     </Button>
@@ -229,7 +229,7 @@ const MediaDetail = () => {
                                     </div>
                                     <Button
                                       onClick={() => handlePlay(episode.Id)}
-                                      className="gap-2 shrink-0"
+                                      className="gap-2 shrink-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                                     >
                                       <Play className="h-4 w-4 fill-white" />
                                       Play

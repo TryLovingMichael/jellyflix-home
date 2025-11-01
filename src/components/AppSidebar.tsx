@@ -44,7 +44,9 @@ export function AppSidebar() {
 
   return (
     <Sidebar
-      className={collapsed ? "w-16" : "w-64"}
+      className={`border-r border-white/5 bg-black/80 backdrop-blur-xl transition-all duration-500 shadow-2xl ${
+        collapsed ? "w-16" : "w-64"
+      }`}
       collapsible="icon"
     >
       <SidebarHeader className={collapsed ? "p-2" : "p-4"}>
@@ -55,9 +57,9 @@ export function AppSidebar() {
         )}
       </SidebarHeader>
       
-      <SidebarContent className="px-2">
+      <SidebarContent className="px-2 py-4">
         <SidebarGroup>
-          <SidebarGroupLabel className={collapsed ? "sr-only" : "text-xs uppercase tracking-wider font-semibold text-muted-foreground"}>
+          <SidebarGroupLabel className={collapsed ? "sr-only" : "text-muted-foreground/80 text-xs uppercase tracking-widest mb-3 px-3 font-semibold"}>
             Library
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -65,7 +67,13 @@ export function AppSidebar() {
               {libraryItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <NavLink to={item.url} end className={getNavCls}>
+                    <NavLink
+                      to={item.url}
+                      end
+                      className={({ isActive }) =>
+                        `${getNavCls({ isActive })} transition-all duration-300 hover:translate-x-1`
+                      }
+                    >
                       <item.icon className="h-4 w-4 shrink-0" />
                       {!collapsed && <span className="truncate">{item.title}</span>}
                     </NavLink>
@@ -78,8 +86,8 @@ export function AppSidebar() {
 
         <Separator className="my-2" />
 
-        <SidebarGroup>
-          <SidebarGroupLabel className={collapsed ? "sr-only" : "text-xs uppercase tracking-wider font-semibold text-muted-foreground"}>
+        <SidebarGroup className="mt-8">
+          <SidebarGroupLabel className={collapsed ? "sr-only" : "text-muted-foreground/80 text-xs uppercase tracking-widest mb-3 px-3 font-semibold"}>
             Genres
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -87,7 +95,12 @@ export function AppSidebar() {
               {genreItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <NavLink to={item.url} end className={getNavCls}>
+                    <NavLink
+                      to={item.url}
+                      className={({ isActive }) =>
+                        `${getNavCls({ isActive })} transition-all duration-300 hover:translate-x-1`
+                      }
+                    >
                       <item.icon className="h-4 w-4 shrink-0" />
                       {!collapsed && <span className="truncate">{item.title}</span>}
                     </NavLink>

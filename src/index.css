@@ -49,6 +49,16 @@ All colors MUST be HSL.
     /* Gradients */
     --gradient-hero: linear-gradient(to top, hsl(0, 0%, 4%), transparent);
     --gradient-card: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    
+    /* Shadows & Effects */
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.15);
+    --shadow-elevated: 0 20px 60px -10px rgba(0, 0, 0, 0.7);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.4);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 }
 
@@ -92,5 +102,20 @@ All colors MUST be HSL.
       transparent 100%
     );
     background-size: 1000px 100%;
+  }
+
+  /* Glass morphism utility */
+  .glass {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-light {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 }

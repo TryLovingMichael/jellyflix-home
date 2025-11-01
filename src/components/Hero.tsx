@@ -34,9 +34,10 @@ export const Hero = ({ item, jellyfinAPI }: HeroProps) => {
         />
       )}
       
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-transparent" />
+      {/* Enhanced gradient overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/30 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/20" />
       
       {/* Content */}
       <div className="absolute bottom-0 left-0 right-0 px-4 pb-16 md:px-12 md:pb-20">
@@ -78,11 +79,11 @@ export const Hero = ({ item, jellyfinAPI }: HeroProps) => {
           )}
           
           {/* Buttons */}
-          <div className="flex gap-3">
+          <div className="flex gap-4">
             <Button
               size="lg"
               onClick={() => window.location.href = `/player?id=${item.Id}`}
-              className="gap-2 bg-white text-black transition-all hover:bg-white/80 hover:scale-105"
+              className="gap-2 bg-white text-black transition-all duration-300 hover:bg-white/90 hover:scale-105 shadow-xl hover:shadow-2xl font-semibold px-8"
             >
               <Play className="h-5 w-5 fill-current" />
               Play
@@ -90,7 +91,7 @@ export const Hero = ({ item, jellyfinAPI }: HeroProps) => {
             <Button
               size="lg"
               variant="secondary"
-              className="gap-2 bg-white/20 text-white backdrop-blur-sm transition-all hover:bg-white/30 hover:scale-105"
+              className="gap-2 bg-white/15 text-white backdrop-blur-md transition-all duration-300 hover:bg-white/25 hover:scale-105 border border-white/20 shadow-xl hover:shadow-2xl font-semibold px-8"
             >
               <Info className="h-5 w-5" />
               More Info
